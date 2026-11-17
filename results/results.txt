@@ -1,0 +1,60 @@
+Loaded CIFAR-10: train (50000, 3072), test (10000, 3072)
+
+[1] Init: seed=42, W shape=(10, 3072), W mean=+0.00009, W std=0.01004, W min/max=-0.0439/+0.0415
+    b = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+
+[2] Scores f(x)=Wx+b for the first 10 test images
+img  true        pred          airpla   automo     bird      cat     deer      dog     frog    horse     ship    truck
+0    cat         automobile    0.1837   0.2195  -0.0976   0.1512   0.0628   0.0259  -0.0235   0.0299  -0.0848   0.1286
+1    ship        ship         -0.0718   0.1461  -0.1368  -0.2198   0.1587   0.1964   0.0820  -0.0679   0.3380   0.0275
+2    ship        automobile   -0.0592   0.3329  -0.1072  -0.2050  -0.0057   0.1360  -0.1743   0.0258   0.0837  -0.1097
+3    airplane    dog          -0.0533   0.2654  -0.2486   0.0266   0.1301   0.2957   0.2187   0.1452   0.1188   0.1590
+4    frog        cat          -0.1237  -0.0905  -0.0400   0.1077  -0.1105  -0.1333   0.0865  -0.0656   0.0820   0.0545
+5    frog        bird          0.1324   0.0101   0.1739   0.0025   0.0626  -0.0366   0.0246  -0.0952  -0.1275   0.0732
+6    automobile  truck         0.0128  -0.2140   0.0403   0.1571  -0.1877  -0.1864  -0.2563  -0.2038  -0.1704   0.1631
+7    frog        cat          -0.0170  -0.0303  -0.0764   0.2760   0.0053  -0.1030   0.0057   0.0576  -0.2096   0.1660
+8    cat         frog         -0.0779  -0.0639  -0.0851  -0.0016  -0.0326   0.2952   0.4135   0.1387   0.1625   0.0667
+9    automobile  airplane      0.2049  -0.0131   0.1786  -0.1862  -0.0111  -0.1635  -0.0509   0.0656  -0.0748  -0.1183
+    -> correct: 1 / 10
+
+[3] Multiclass SVM loss (delta=1.0)
+    img 0   L_i = 8.0833
+    img 1   L_i = 6.0722
+    img 2   L_i = 8.0807
+    img 3   L_i = 10.5903
+    img 4   L_i = 7.9021
+    img 5   L_i = 8.9742
+    img 6   L_i = 10.2950
+    img 7   L_i = 9.0177
+    img 8   L_i = 9.8317
+    img 9   L_i = 8.9626
+    average SVM loss = 8.7810   (expected ~ (C-1)*delta = 9.0 for near-equal scores)
+
+[4] Softmax probabilities (rows = images)
+img    airpla   automo     bird      cat     deer      dog     frog    horse     ship    truck    sum
+0      0.1126   0.1167   0.0850   0.1090   0.0998   0.0962   0.0915   0.0966   0.0861   0.1066  1.000000
+1      0.0878   0.1092   0.0823   0.0757   0.1105   0.1148   0.1024   0.0881   0.1323   0.0970  1.000000
+2      0.0939   0.1389   0.0895   0.0811   0.0990   0.1141   0.0837   0.1022   0.1083   0.0893  1.000000
+3      0.0843   0.1160   0.0694   0.0914   0.1013   0.1196   0.1107   0.1029   0.1002   0.1043  1.000000
+4      0.0901   0.0931   0.0979   0.1135   0.0913   0.0892   0.1111   0.0955   0.1106   0.1076  1.000000
+5      0.1112   0.0984   0.1159   0.0977   0.1037   0.0939   0.0999   0.0886   0.0858   0.1048  1.000000
+6      0.1089   0.0868   0.1119   0.1258   0.0891   0.0892   0.0832   0.0877   0.0907   0.1266  1.000000
+7      0.0968   0.0955   0.0912   0.1297   0.0989   0.0888   0.0990   0.1042   0.0798   0.1162  1.000000
+8      0.0841   0.0853   0.0835   0.0908   0.0880   0.1222   0.1375   0.1045   0.1070   0.0972  1.000000
+9      0.1238   0.0996   0.1206   0.0837   0.0998   0.0857   0.0959   0.1077   0.0936   0.0896  1.000000
+    all sums == 1 : True   (max |sum-1| = 2.22e-16)
+    argmax(scores) == argmax(probs): True
+    average softmax (cross-entropy) loss = 2.2899   (ln(10) = 2.3026)
+
+[5] Among the first 1000 test images: 99 correct, 901 wrong (chance level ~ 10%)
+    correct  #1: true=ship, pred=ship, p(pred)=0.1323
+    correct  #19: true=frog, pred=frog, p(pred)=0.1318
+    correct  #24: true=dog, pred=dog, p(pred)=0.1123
+    correct  #53: true=cat, pred=cat, p(pred)=0.1230
+    wrong    #0: true=cat, pred=automobile, p(pred)=0.1167, p(true)=0.1090
+    wrong    #2: true=ship, pred=automobile, p(pred)=0.1389, p(true)=0.1083
+    wrong    #3: true=airplane, pred=dog, p(pred)=0.1196, p(true)=0.0843
+    wrong    #4: true=frog, pred=cat, p(pred)=0.1135, p(true)=0.1111
+
+[6] Weight images saved. Pairwise correlation between class weight vectors: mean |corr| = 0.0133, max |corr| = 0.0521 (~1/sqrt(3072) = 0.0180 expected for independent noise)
+    neighbouring-pixel correlation: weights(class 0) = +0.034, real image #0 = +0.820
